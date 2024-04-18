@@ -1,0 +1,15 @@
+body {
+    background-color: black;
+}
+
+.enable {
+    color: white;
+}
+
+.disable {
+    color:blue;
+}
+
+td {
+    text-align: center;
+}
