@@ -1,15 +1,36 @@
+:root {
+    --disable-color: rgb(36, 36, 36);
+    --enable-color: white;
+}
 body {
     background-color: black;
+    color: var(--disable-color);
+    font-family: "Wordclock Stencil Mono";
+    font-size: 50px;
+    src: url("font/WordclockStencilMono.woff") format("woff");
 }
 
 .enable {
-    color: white;
+    color: var(--enable-color);
+    transition: 2s;
 }
 
 .disable {
-    color:blue;
+    color: var(--disable-color);
+    transition: 2s;
+}
+
+table {
+    margin: auto;
+    margin-top: 20px;
+    border-style: double;
+    width: 50%;
+    height: 90vh;
 }
 
 td {
     text-align: center;
+    color: var(--disable-color);
+    position: relative;
+    width: 9%;
 }

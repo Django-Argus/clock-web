@@ -1,5 +1,6 @@
 var table = document.getElementById("table");
 
+var L = [];
 
 init();
 
@@ -9,192 +10,360 @@ function init() {
             getCell(x, y).setAttribute("class", "disable");
         }
     }
+
+    setL();
+
+    update();
+    setInterval(update, 1000);
 }
 
-function print_IL() {
-    enable(0, 0);
-    enable(1, 0);
+function setL() {
+    L = [];
+    for(var x = 0; x < 11; x++) {
+        var l = [];
+        for(var y = 0; y < 10; y++) {
+            l.push(0);
+        }
+        L.push(l);
+    }
 }
 
-function print_EST() {
-    enable(3, 0);
-    enable(4, 0);
-    enable(5, 0);
+function update() {
+    var date = new Date();
+    var hours = date.getHours();
+    var min = date.getMinutes();
+
+    setL();
+
+    print_IL_();
+    print_EST_();
+    
+    if(((hours == 1 || hours == 13) && min < 35) || ((hours == 0 || hours == 12) && min >= 35)) {
+        print_HEURE_();
+    }else if(((hours == 0 || hours == 12) && min < 35) || (hours == 11 || hours == 23) && min >= 35) {
+    }else {
+        print_HEURES_();
+    }
+
+
+    if(min < 35) {
+        if(hours == 1 || hours == 13)
+            print_UNE_();
+    
+        if(hours == 2 || hours == 14)
+            print_DEUX_();
+    
+        if(hours == 3 || hours == 15)
+            print_TROIS_();
+        
+        if(hours == 4 || hours == 16)
+            print_QUART_();
+        
+        if(hours == 5 || hours == 17)
+            print_CINQ_(CINQ);
+        
+        if(hours == 6 || hours == 18)
+            print_SIX_();
+        
+        if(hours == 7 || hours == 19)
+            print_SEPT_();
+        
+        if(hours == 8 || hours == 20)
+            print_HUIT_();
+        
+        if(hours == 9 || hours == 21)
+            print_NEUF_();
+    
+        if(hours == 10 || hours == 22)
+            print_DIX_();
+    
+        if((hours == 11 || hours == 23))
+            print_ONZE_();
+        
+        if(hours == 12)
+            print_MIDI_();
+
+        if(hours == 0)
+            print_MINUIT_();
+    }else {   
+        if(hours == 0 || hours == 12)
+            print_UNE_();
+        
+        if(hours == 1 || hours == 13)
+            print_DEUX_();
+
+        if(hours == 2 || hours == 14)
+            print_TROIS_();
+
+        if(hours == 3 || hours == 15)
+            print_QUART_();
+
+        if(hours == 4 || hours == 16)
+            print_CINQ_(CINQ);
+
+        if(hours == 5 || hours == 17)
+            print_SIX_();
+
+        if(hours == 6 || hours == 18)
+            print_SEPT_();
+
+        if(hours == 7 || hours == 19)
+            print_HUIT_();
+
+        if(hours == 8 || hours == 20)
+            print_NEUF_();
+
+        if(hours == 9 || hours == 21)
+            print_DIX_();
+
+        if(hours == 10 || hours == 22)
+            print_ONZE_();
+
+        if(hours == 11)
+            print_MIDI_();
+
+        if(hours == 23)
+            print_MINUIT_();
+    }
+
+
+
+    if((min >= 5 && min < 10) || min >= 55)
+        print_CINQ_bis_();
+
+    if((min >= 10 && min < 15) || (min >= 50 && min < 55))
+        print_DIX_bis_();
+
+    if(min >= 15 && min < 20) {
+        print_ET_();
+        print_QUART_();
+    }
+    
+    if((min >= 20 && min < 25) || (min >= 40 && min < 45))
+        print_VINGT_();
+    
+    if((min >= 25 && min < 30) || (min >= 35 && min < 40)) {
+        print_VINGT_();
+        print__();
+        print_CINQ_bis_();
+    }
+    
+    if(min >= 30 && min < 35) {
+        print_ET_bis_();
+        print_DEMIE_();
+    }
+    
+    if(min >= 35)
+        print_MOINS_();
+    
+    if(min >= 45 && min < 50) {
+        print_LE_();
+        print_QUART_();
+    }
+
+    applyUpdate();
 }
 
-function print_DEUX() {
-    enable(7, 0);
-    enable(8, 0);
-    enable(9, 0);
-    enable(10, 0);
+function applyUpdate() {
+    for(var x = 0; x < 11; x++) 
+        for(var y = 0; y < 10; y++) 
+            if(L[x][y] == 1)
+                enable(x, y)
+            else
+                disable(x, y);
 }
 
-function print_QUATRE() {
-    enable(0, 1);
-    enable(1, 1);
-    enable(2, 1);
-    enable(3, 1);
-    enable(4, 1);
-    enable(5, 1);
+function print_IL_() {
+    push(0, 0);
+    push(1, 0);
 }
 
-function print_TROIS() {
-    enable(6, 1);
-    enable(7, 1);
-    enable(8, 1);
-    enable(9, 1);
-    enable(10, 1);
+function print_EST_() {
+    push(3, 0);
+    push(4, 0);
+    push(5, 0);
 }
 
-function print_NEUF() {
-    enable(0, 2);
-    enable(1, 2);
-    enable(2, 2);
-    enable(3, 2);
+function print_DEUX_() {
+    push(7, 0);
+    push(8, 0);
+    push(9, 0);
+    push(10, 0);
 }
 
-function print_UNE() {
-    enable(4, 2);
-    enable(5, 2);
-    enable(6, 2);
+function print_QUATRE_() {
+    push(0, 1);
+    push(1, 1);
+    push(2, 1);
+    push(3, 1);
+    push(4, 1);
+    push(5, 1);
 }
 
-function print_SEPT() {
-    enable(7, 2);
-    enable(8, 2);
-    enable(9, 2);
-    enable(10, 2);
+function print_TROIS_() {
+    push(6, 1);
+    push(7, 1);
+    push(8, 1);
+    push(9, 1);
+    push(10, 1);
 }
 
-function print_HUIT() {
-    enable(0, 3);
-    enable(1, 3);
-    enable(2, 3);
-    enable(3, 3);
+function print_NEUF_() {
+    push(0, 2);
+    push(1, 2);
+    push(2, 2);
+    push(3, 2);
 }
 
-function print_SIX() {
-    enable(4, 3);
-    enable(5, 3);
-    enable(6, 3);
+function print_UNE_() {
+    push(4, 2);
+    push(5, 2);
+    push(6, 2);
 }
 
-function print_CINQ() {
-    enable(7, 3);
-    enable(8, 3);
-    enable(9, 3);
-    enable(10, 3);
+function print_SEPT_() {
+    push(7, 2);
+    push(8, 2);
+    push(9, 2);
+    push(10, 2);
 }
 
-function print_MIDI() {
-    enable(0, 4);
-    enable(1, 4);
-    enable(2, 4);
-    enable(3, 4);
+function print_HUIT_() {
+    push(0, 3);
+    push(1, 3);
+    push(2, 3);
+    push(3, 3);
 }
 
-function print_DIX() {
-    enable(2, 4);
-    enable(3, 4);
-    enable(4, 4);
+function print_SIX_() {
+    push(4, 3);
+    push(5, 3);
+    push(6, 3);
 }
 
-function print_MINUIT() {
-    enable(5, 4);
-    enable(6, 4);
-    enable(7, 4);
-    enable(8, 4);
-    enable(9, 4);
-    enable(10, 4);
+function print_CINQ_() {
+    push(7, 3);
+    push(8, 3);
+    push(9, 3);
+    push(10, 3);
 }
 
-function print_ONZE() {
-    enable(0, 5);
-    enable(1, 5);
-    enable(2, 5);
-    enable(3, 5);
+function print_MIDI_() {
+    push(0, 4);
+    push(1, 4);
+    push(2, 4);
+    push(3, 4);
 }
 
-function print_HEURE() {
-    enable(5, 5);
-    enable(6, 5);
-    enable(7, 5);
-    enable(8, 5);
-    enable(9, 5);
+function print_DIX_() {
+    push(2, 4);
+    push(3, 4);
+    push(4, 4);
 }
 
-function print_HEURES() {
-   print_HEURE();
-   enable(10, 5);
+function print_MINUIT_() {
+    push(5, 4);
+    push(6, 4);
+    push(7, 4);
+    push(8, 4);
+    push(9, 4);
+    push(10, 4);
 }
 
-function print_MOINS() {
-    enable(0, 6);
-    enable(1, 6);
-    enable(2, 6);
-    enable(3, 6);
-    enable(4, 6);
+function print_ONZE_() {
+    push(0, 5);
+    push(1, 5);
+    push(2, 5);
+    push(3, 5);
 }
 
-function print_LE() {
-    enable(6, 6);
-    enable(7, 6);
+function print_HEURE_() {
+    push(5, 5);
+    push(6, 5);
+    push(7, 5);
+    push(8, 5);
+    push(9, 5);
 }
 
-function print_DIX_bis() {
-    enable(8, 6);
-    enable(9, 6);
-    enable(10, 6);
+function print_HEURES_() {
+    push(5, 5);
+    push(6, 5);
+    push(7, 5);
+    push(8, 5);
+    push(9, 5);
+    push(10, 5);
 }
 
-function print_ET() {
-    enable(0, 7);
-    enable(1, 7);
+function print_MOINS_() {
+    push(0, 6);
+    push(1, 6);
+    push(2, 6);
+    push(3, 6);
+    push(4, 6);
 }
 
-function print_QUART() {
-    enable(3, 7);
-    enable(4, 7);
-    enable(5, 7);
-    enable(6, 7);
-    enable(7, 7);
+function print_LE_() {
+    push(6, 6);
+    push(7, 6);
 }
 
-function print_VINGT() {
-    enable(0, 8);
-    enable(1, 8);
-    enable(2, 8);
-    enable(3, 8);
-    enable(4, 8);
+function print_DIX_bis_() {
+    push(8, 6);
+    push(9, 6);
+    push(10, 6);
 }
 
-function print_() {
-    enable(5, 8);
+function print_ET_() {
+    push(0, 7);
+    push(1, 7);
 }
 
-function print_CINQ_bis() {
-    enable(6, 8);
-    enable(7, 8);
-    enable(8, 8);
-    enable(9, 8);
+function print_QUART_() {
+    push(3, 7);
+    push(4, 7);
+    push(5, 7);
+    push(6, 7);
+    push(7, 7);
 }
 
-function print_ET_bis() {
-    enable(0, 9);
-    enable(1, 9);
+function print_VINGT_() {
+    push(0, 8);
+    push(1, 8);
+    push(2, 8);
+    push(3, 8);
+    push(4, 8);
 }
 
-function print_DEMIE() {
-    enable(3, 9);
-    enable(4, 9);
-    enable(5, 9);
-    enable(6, 9);
-    enable(7, 9);
+function print__() {
+    push(5, 8);
 }
 
+function print_CINQ_bis_() {
+    push(6, 8);
+    push(7, 8);
+    push(8, 8);
+    push(9, 8);
+}
+
+function print_ET_bis_() {
+    push(0, 9);
+    push(1, 9);
+}
+
+function print_DEMIE_() {
+    push(3, 9);
+    push(4, 9);
+    push(5, 9);
+    push(6, 9);
+    push(7, 9);
+}
 
 function getCell(x, y) {
     return table.children[y].children[x];
+}
+
+function push(x, y) {
+    L[x][y] = 1;
 }
 
 function enable(x, y) {
