@@ -57,10 +57,10 @@ function update() {
             print_TROIS_();
         
         if(hours == 4 || hours == 16)
-            print_QUART_();
+            print_QUATRE_();
         
         if(hours == 5 || hours == 17)
-            print_CINQ_(CINQ);
+            print_CINQ_();
         
         if(hours == 6 || hours == 18)
             print_SIX_();
@@ -96,10 +96,10 @@ function update() {
             print_TROIS_();
 
         if(hours == 3 || hours == 15)
-            print_QUART_();
+            print_QUATRE_();
 
         if(hours == 4 || hours == 16)
-            print_CINQ_(CINQ);
+            print_CINQ_();
 
         if(hours == 5 || hours == 17)
             print_SIX_();
